@@ -30,13 +30,14 @@ pipeline{
 		stage('Login') {
 
 			steps {
-				bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+				bat 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
 			}
 		}
 
 		stage('Push') {
 
 			steps {
+                withDockerRegistry(credentialsId: )
 				bat 'docker push -t samidarex/docker_projects-master_api:latest .'
                 bat 'docker push -t samidarex/mongo:latest .'
                 bat 'docker push -t samidarex/docker_projects-master_client:latest .'
