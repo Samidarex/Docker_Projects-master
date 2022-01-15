@@ -1,9 +1,9 @@
 pipeline{
 
 	agent {
-        label 'master'
         docker { 
             registryUrl 'https://index.docker.io/v1/'
+            label 'master'
             }
         }
 	environment {
