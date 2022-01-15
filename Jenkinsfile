@@ -37,7 +37,6 @@ pipeline{
 		stage('Push') {
 
 			steps {
-                withDockerRegistry(credentialsId: )
 				bat 'docker push -t samidarex/docker_projects-master_api:latest .'
                 bat 'docker push -t samidarex/mongo:latest .'
                 bat 'docker push -t samidarex/docker_projects-master_client:latest .'
