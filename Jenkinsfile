@@ -21,8 +21,6 @@ pipeline{
 			steps {
 				bat 'docker-compose up -d api'
                 bat 'echo "Docker Build Successfully API Container"'
-                bat 'docker-compose up -d client'
-                bat 'echo "Docker Build Successfully Client Container"'
                 bat 'docker-compose up -d mongo'
                 bat 'echo "Docker Build Successfully MongoDB Container"'
 			}
@@ -37,8 +35,6 @@ pipeline{
             }
 			steps {
 				bat 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
-                bat 'echo "$JD_TO_PULL"'
-                bat 'docker pull "mongo:latest"'
 			}
 		}
 
