@@ -57,7 +57,7 @@ pipeline{
 				{
 				catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                 bat 'docker push -t "samidarex/mongo:latest" .'
-				}'
+				}
 				}
 				else
 				{
