@@ -18,11 +18,11 @@ pipeline{
 		stage('Build') {
 
 			steps {
-				bat 'docker-compose up -d api-container'
+				bat 'docker-compose up -d api'
                 bat 'echo "Docker Build Successfully API Container"'
-                bat 'docker-compose up -d client-container'
+                bat 'docker-compose up -d client'
                 bat 'echo "Docker Build Successfully Client Container"'
-                bat 'docker-compose up -d mongo-backend'
+                bat 'docker-compose up -d mongo'
                 bat 'echo "Docker Build Successfully MongoDB Container"'
 			}
 		}
