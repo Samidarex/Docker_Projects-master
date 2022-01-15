@@ -38,27 +38,12 @@ pipeline{
                 }
             }
 			steps {
-				script{
-					if(params.IMAGE_EXISTS == true) {
-							bat 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
-					}
-					else {
-						echo 'Docker Login Successfully'
-					}
-				}
+				bat './publish.bat'
 			}
 		}
 		stage('Push') {
 			steps {
-				script{
-					if(params.IMAGE_EXISTS == true) {
-                			bat 'docker push -t "samidarex/mongo:latest" .'
-					}
-					else
-					{
-						echo 'Docker Push Successfully'
-					}
-				}
+				bat './publish.bat'
 			}
 		}
 	}
