@@ -3,9 +3,7 @@ pipeline{
 	agent {
         label 'master'
     }
-	parameters {
-		booleanParam(name: 'IMAGE_EXISTS', defaultValue: 'false')
-	}
+	boolean prod = Boolean.getBoolean(IMAGE_EXISTS)
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
 	}
@@ -39,7 +37,7 @@ pipeline{
             }
 			steps {
 				script{
-					if(params.IMAGE_EXISTS != false)
+					if(prod)
 					{
 					catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
 						bat 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
@@ -52,7 +50,7 @@ pipeline{
 		stage('Push') {
 
 			steps {
-				if(params.IMAGE_EXISTS != false)
+				if(prod)
 				{
 				catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                 bat 'docker push -t "samidarex/mongo:latest" .'
