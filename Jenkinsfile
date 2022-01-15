@@ -45,7 +45,9 @@ pipeline{
 						bat 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
 					}
 					}
+					else{
 					echo 'Docker Login Successfully'
+					}
 				}
 			}
 		}
@@ -59,7 +61,10 @@ pipeline{
                 bat 'docker push -t "samidarex/mongo:latest" .'
 				}
 				}
+				else
+				{
 				echo 'Docker Push Successfully'
+				}
 				}
 			}
 		}
