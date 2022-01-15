@@ -18,25 +18,25 @@ pipeline{
 		stage('Build') {
 
 			steps {
-				sh 'docker build -t samidarex/docker_projects-master_api:latest .'
-                sh 'docker build -t samidarex/mongo:latest .'
-                sh 'docker build -t samidarex/docker_projects-master_client:latest .'
+				bat 'docker build -t samidarex/docker_projects-master_api:latest .'
+                bat 'docker build -t samidarex/mongo:latest .'
+                bat 'docker build -t samidarex/docker_projects-master_client:latest .'
 			}
 		}
 
 		stage('Login') {
 
 			steps {
-				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+				bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 			}
 		}
 
 		stage('Push') {
 
 			steps {
-				sh 'docker push -t samidarex/docker_projects-master_api:latest .'
-                sh 'docker push -t samidarex/mongo:latest .'
-                sh 'docker push -t samidarex/docker_projects-master_client:latest .'
+				bat 'docker push -t samidarex/docker_projects-master_api:latest .'
+                bat 'docker push -t samidarex/mongo:latest .'
+                bat 'docker push -t samidarex/docker_projects-master_client:latest .'
 			}
 		}
 	}
