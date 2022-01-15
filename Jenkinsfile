@@ -1,59 +1,23 @@
-pipeline{
-
-	agent {
-        label 'master'
-    }
-	environment {
-		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
-	}
-
-	stages {
-	    
-	    stage('gitclone') {
-
-			steps {
-				git 'https://github.com/Samidarex/Docker_Projects-master.git'
-			}
-		}
-
-		stage('Build') {
-
-			steps {
-				bat 'docker-compose up -d api'
-                bat 'echo "Docker Build Successfully API Container"'
-                bat 'docker-compose up -d client'
-                bat 'echo "Docker Build Successfully Client Container"'
-                bat 'docker-compose up -d mongo'
-                bat 'echo "Docker Build Successfully MongoDB Container"'
-			}
-		}
-
-		stage('Login') {
-            agent {
-                docker { 
-                    image 'node:16.13.1-alpine'
-                    registryUrl 'https://index.docker.io/v1/'
-                }
-            }
-			steps {
-				bat 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
-			}
-		}
-
-		stage('Push') {
-
-			steps {
-				bat 'docker push -t samidarex/api:latest .'
-                bat 'docker push -t samidarex/mongo:latest .'
-                bat 'docker push -t samidarex/client:latest .'
-			}
-		}
-	}
-
-	post {
-		always {
-			bat 'docker logout'
-		}
-	}
-
-}
+node {    
+      def app     
+      stage('Clone repository') {               
+             
+            checkout scm    
+      }     
+      stage('Build image') {         
+       
+            app = docker.build("samidarex/mongo")    
+       }     
+      stage('Test image') {           
+            app.inside {            
+             
+             sh 'echo "Tests passed"'        
+            }    
+        }     
+       stage('Push image') {
+                                                  docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {            
+       app.push("${env.BUILD_NUMBER}")            
+       app.push("latest")        
+              }    
+           }
+        }
