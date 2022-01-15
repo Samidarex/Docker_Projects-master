@@ -3,6 +3,7 @@ pipeline{
 	agent {
         label 'master'
     }
+	bool err = false
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
 	}
@@ -36,18 +37,26 @@ pipeline{
             }
 			steps {
 				script{
+					while(err)
+					{
 					catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
 						bat 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
 					}
+					}
+					echo 'Docker Login Successfully'
 				}
 			}
 		}
 		stage('Push') {
 
 			steps {
+				while(err)
+				{
 				catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                 bat 'docker push -t "samidarex/mongo:latest" .'
 				}
+				}
+				echo 'Docker Push Successfully'
 			}
 		}
 	}
