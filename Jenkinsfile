@@ -36,13 +36,8 @@ pipeline{
             }
 			steps {
 				script{
-					try
-					{
+					catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
 						bat 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
-					}
-					catch (err)
-					{
-						echo "Nothing to pull from docker-hub"  
 					}
 				}
 			}
@@ -50,7 +45,9 @@ pipeline{
 		stage('Push') {
 
 			steps {
+				catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                 bat 'docker push -t "samidarex/mongo:latest" .'
+				}
 			}
 		}
 	}
