@@ -28,12 +28,6 @@ pipeline{
 			}
 		}
 		stage('Login') {
-            agent {
-                docker { 
-                    image 'node:16.13.1-alpine'
-                    registryUrl 'https://index.docker.io/v1/'
-                }
-            }
 			steps {
 				bat './publish.bat'
 			}
