@@ -3,19 +3,11 @@ services:
   api:
     container_name: api
     restart: always
-    build: ./server
+    build: .
     ports: 
       - "8081:8081"
     depends_on: 
       - mongo
-  client:
-    container_name: client
-    restart: always
-    build: ./client
-    ports: 
-      - "8080:8080"
-    depends_on: 
-      - api
   mongo:
     container_name: mongo
     image: mongo
