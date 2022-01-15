@@ -52,6 +52,7 @@ pipeline{
 		stage('Push') {
 
 			steps {
+				script{
 				if(params.IMAGE_EXISTS != false)
 				{
 				catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
@@ -59,6 +60,7 @@ pipeline{
 				}
 				}
 				echo 'Docker Push Successfully'
+				}
 			}
 		}
 	}
