@@ -18,9 +18,12 @@ pipeline{
 		stage('Build') {
 
 			steps {
-				bat 'docker build -t samidarex/docker_projects-master_api:latest .'
-                bat 'docker build -t samidarex/mongo:latest .'
-                bat 'docker build -t samidarex/docker_projects-master_client:latest .'
+				bat 'docker-compose up -d api-container'
+                bat 'echo "Docker Build Successfully API Container"'
+                bat 'docker-compose up -d client-container'
+                bat 'echo "Docker Build Successfully Client Container"'
+                bat 'docker-compose up -d mongo-backend'
+                bat 'echo "Docker Build Successfully MongoDB Container"'
 			}
 		}
 
@@ -43,7 +46,7 @@ pipeline{
 
 	post {
 		always {
-			sh 'docker logout'
+			bat 'docker logout'
 		}
 	}
 
