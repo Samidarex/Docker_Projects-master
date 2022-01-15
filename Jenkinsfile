@@ -1,9 +1,7 @@
 pipeline{
 
 	agent {
-        docker { 
-            registryUrl 'https://index.docker.io/v1/'
-        }
+        label 'master'
     }
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
@@ -31,7 +29,11 @@ pipeline{
 		}
 
 		stage('Login') {
-
+            agent {
+                docker { 
+                    'https://index.docker.io/v1/'
+                }
+            }
 			steps {
 				bat 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
 			}
