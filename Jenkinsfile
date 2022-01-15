@@ -3,9 +3,6 @@ pipeline{
 	agent {
         label 'master'
     }
-	parameters {
-		booleanParam(name: 'IMAGE_EXISTS', defaultValue: 'false')
-	}
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
 	}
