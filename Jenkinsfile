@@ -27,8 +27,6 @@ pipeline{
                 bat 'echo "Docker Build Successfully MongoDB Container"'
 			}
 		}
-		try
-		{
 		stage('Login') {
             agent {
                 docker { 
@@ -37,13 +35,17 @@ pipeline{
                 }
             }
 			steps {
-				bat 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
+				script{
+					try
+					{
+						bat 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
+					}
+					catch (err)
+					{
+						echo "Nothing to pull from docker-hub"  
+					}
+				}
 			}
-		}
-		}
-		catch (Exception e)
-		{
-			echo "Nothing to pull from docker-hub"  
 		}
 		stage('Push') {
 
