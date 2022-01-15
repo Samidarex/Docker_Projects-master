@@ -1,14 +1,12 @@
 pipeline{
-    agent any
-    
-    options {
-        timestamps()
+
+	agent {
+        label 'master'
     }
 	environment {
-	dockerImage = ''  
-	registry = 'samidarex/mongo'
-	registryCredential = 'dockerhub'
-    }
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
+	}
+
 	stages {
 	    
 	    stage('gitclone') {
@@ -18,22 +16,37 @@ pipeline{
 			}
 		}
 
-		stage('Continuous Delivery'){
-	    steps {
-		script {
-		    dockerImage = docker.build registry	 
-		}
-	    }
-	}
-	stage('Image Uploading'){
-		steps {
-			script {
-				docker.withRegistry( '', registryCredential){
-					dockerImage.push()
-				}
+		stage('Build') {
+
+			steps {
+				bat 'docker-compose up -d api'
+                bat 'echo "Docker Build Successfully API Container"'
+                bat 'docker-compose up -d client'
+                bat 'echo "Docker Build Successfully Client Container"'
+                bat 'docker-compose up -d mongo'
+                bat 'echo "Docker Build Successfully MongoDB Container"'
 			}
 		}
-	}
+
+		stage('Login') {
+            agent {
+                docker { 
+                    image 'node:16.13.1-alpine'
+                    registryUrl 'https://index.docker.io/v1/'
+                }
+            }
+			steps {
+				bat 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
+                bat 'docker pull mongo:latest'
+			}
+		}
+
+		stage('Push') {
+
+			steps {
+                bat 'docker push -t samidarex/mongo:latest .'
+			}
+		}
 	}
 
 	post {
