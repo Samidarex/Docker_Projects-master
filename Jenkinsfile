@@ -31,7 +31,8 @@ pipeline{
 		stage('Login') {
             agent {
                 docker { 
-                    'https://index.docker.io/v1/'
+                    image 'node:16.13.1-alpine'
+                    registryUrl 'https://index.docker.io/v1/'
                 }
             }
 			steps {
