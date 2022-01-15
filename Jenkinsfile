@@ -1,23 +1,42 @@
-node {    
-      def app     
-      stage('Clone repository') {               
-             
-            checkout scm    
-      }     
-      stage('Build image') {         
-       
-            app = docker.build("samidarex/mongo")    
-       }     
-      stage('Test image') {           
-            app.inside {            
-             
-             sh 'echo "Tests passed"'        
-            }    
-        }     
-       stage('Push image') {
-                                                  docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {            
-       app.push("${env.BUILD_NUMBER}")            
-       app.push("latest")        
-              }    
-           }
-        }
+pipeline{
+
+
+	environment {
+	dockerImage = ''  
+	registry = 'samidarex/mongo'
+	registryCredential = 'dockerhub'
+    }
+	stages {
+	    
+	    stage('gitclone') {
+
+			steps {
+				git 'https://github.com/Samidarex/Docker_Projects-master.git'
+			}
+		}
+
+		stage('Continuous Delivery'){
+	    steps {
+		script {
+		    dockerImage = docker.build registry	 
+		}
+	    }
+	}
+	stage('Image Uploading'){
+		steps {
+			script {
+				docker.withRegistry( '', registryCredential){
+					dockerImage.push()
+				}
+			}
+		}
+	}
+	}
+
+	post {
+		always {
+			bat 'docker logout'
+		}
+	}
+
+}
