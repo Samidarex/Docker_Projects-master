@@ -17,7 +17,7 @@ services:
     depends_on: 
       - api
   mongo:
-    container_name: mongotest
+    container_name: mongo
     image: mongo
     expose: 
       - "27017"
