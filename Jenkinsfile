@@ -37,7 +37,7 @@ pipeline{
             }
 			steps {
 				script{
-					if(IMAGE_EXISTS_CHECK == false)
+					if(IMAGE_EXISTS_CHECK == 'false')
 					{
 					catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
 						bat 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
@@ -53,11 +53,11 @@ pipeline{
 
 			steps {
 				script{
-				if(IMAGE_EXISTS_CHECK == false)
+				if(IMAGE_EXISTS_CHECK == 'false')
 				{
 				catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                 bat 'docker push -t "samidarex/mongo:latest" .'
-				}
+				}'
 				}
 				else
 				{
