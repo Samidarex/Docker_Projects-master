@@ -1,6 +1,12 @@
 pipeline{
 
-	agent {label 'master'}
+	agent {
+        label 'master'
+        docker { 
+            registryUrl 'https://index.docker.io/v1/'
+            }
+            }
+        }
 
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
