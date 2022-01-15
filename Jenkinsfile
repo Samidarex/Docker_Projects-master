@@ -37,14 +37,14 @@ pipeline{
             }
 			steps {
 				bat 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
-                bat 'docker pull mongo:latest'
+                bat 'docker pull "mongo:latest"'
 			}
 		}
 
 		stage('Push') {
 
 			steps {
-                bat 'docker push -t samidarex/mongo:latest .'
+                bat 'docker push -t "samidarex/mongo:latest" .'
 			}
 		}
 	}
