@@ -5,9 +5,7 @@ pipeline{
         docker { 
             registryUrl 'https://index.docker.io/v1/'
             }
-            }
         }
-
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
 	}
