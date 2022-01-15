@@ -1,6 +1,9 @@
 pipeline{
-
-
+    agent any
+    
+    options {
+        timestamps()
+    }
 	environment {
 	dockerImage = ''  
 	registry = 'samidarex/mongo'
