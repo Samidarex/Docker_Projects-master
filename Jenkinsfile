@@ -43,9 +43,9 @@ pipeline{
 		stage('Push') {
 
 			steps {
-				bat 'docker push -t samidarex/docker_projects-master_api:latest .'
+				bat 'docker push -t samidarex/api:latest .'
                 bat 'docker push -t samidarex/mongo:latest .'
-                bat 'docker push -t samidarex/docker_projects-master_client:latest .'
+                bat 'docker push -t samidarex/client:latest .'
 			}
 		}
 	}

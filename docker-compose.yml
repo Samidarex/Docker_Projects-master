@@ -1,7 +1,7 @@
 version: '3.8'
 services: 
   api:
-    container_name: api-container-jenkins
+    container_name: api
     restart: always
     build: ./server
     ports: 
@@ -9,7 +9,7 @@ services:
     depends_on: 
       - mongo
   client:
-    container_name: client-container-jenkins
+    container_name: client
     restart: always
     build: ./client
     ports: 
@@ -17,7 +17,7 @@ services:
     depends_on: 
       - api
   mongo:
-    container_name: mongo-backend-jenkins
+    container_name: mongo
     image: mongo
     expose: 
       - "27017"
