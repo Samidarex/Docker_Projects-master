@@ -29,12 +29,12 @@ pipeline{
 		}
 		stage('Login') {
 			steps {
-				bat './publish.bat'
+				bat './script/logIn.batt'
 			}
 		}
 		stage('Push') {
 			steps {
-				bat './publish.bat'
+				bat './script/publish.bat'
 			}
 		}
 	}
@@ -42,6 +42,7 @@ pipeline{
 	post {
 		always {
 			bat 'docker logout'
+			echo "Logged out of DockerHub"
 		}
 	}
 
