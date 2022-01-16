@@ -9,4 +9,4 @@ docker push $HUB_USERNAME/mongo:lates-version
 docker push $HUB_USERNAME/api:lates-version
 docker push $HUB_USERNAME/client:lates-version
 
-echo "Pushed succesfully"
+echo "All images pushed to Docker Hub succesfully"
