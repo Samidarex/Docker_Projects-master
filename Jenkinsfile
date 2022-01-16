@@ -29,7 +29,7 @@ pipeline{
 		}
 		stage('Login') {
 			steps {
-				bat './script/logIn.batt'
+				bat './script/logIn.bat'
 			}
 		}
 		stage('Push') {
