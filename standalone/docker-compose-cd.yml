@@ -1,0 +1,30 @@
+version: '3.8'
+services: 
+  api:
+    container_name: api
+    restart: always
+    image: samidarex/api
+    ports: 
+      - "8081:8081"
+    depends_on: 
+      - mongo
+  client:
+    container_name: client
+    restart: always
+    image: samidarex/docker_projects-master_client
+    ports: 
+      - "8080:8080"
+    depends_on: 
+      - api
+  mongo:
+    container_name: mongo
+    image: samidarex/docker_projects-master_api
+    expose: 
+      - "27017"
+    ports: 
+      - "27017:27017"
+    volumes: 
+      - apiDB:/data/db
+
+volumes: 
+  apiDB:

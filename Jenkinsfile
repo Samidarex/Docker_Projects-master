@@ -37,6 +37,11 @@ pipeline{
 				bat './script/publish.bat'
 			}
 		}
+		stage('Continous Deployment') {
+			steps {
+				bat './script/continousDeployment.bat'
+			}
+		}
 	}
 
 	post {
