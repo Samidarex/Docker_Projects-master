@@ -105,7 +105,7 @@ ping localhost -n 2 >nul
 echo latest: digest: sha256:4a2dc2ca0f9d9101bf2d514922469c6bfa475ee3b265308fca5d79c891214a6f size: 3476
 echo:
 ping localhost -n 2 >nul
-
+echo:
 echo The push refers to repository [docker.io/samidarex/docker_projects-master_api]
 ping localhost -n 2 >nul
 echo:
