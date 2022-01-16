@@ -2,7 +2,7 @@
 set ALREADY_PUSHED=true
 
 IF %ALREADY_PUSHED%==true echo "The push refers to repository [docker.io/samidarex/mongo]" 
-echo "a5233b7abf5e: Preparing"
+echo a5233b7abf5e: Preparing
 echo "ab41ae20b5a1: Preparing"
 echo "6f227c94efa1: Preparing"
 echo "ea0d51559b58: Preparing"
