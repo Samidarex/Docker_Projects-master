@@ -2,7 +2,7 @@
 set IMAGE_EXISTS=true
 set LOGGED_STATUS=true
 echo docker login -u samidarex -p $DOCKER_PASSWORD
-timeout /t 3 > NUL
+ping localhost -n 3 >nul
 echo WARNING! Using --password via the CLI is insecure. Use --password-stdin.
 echo Login Succeeded
 echo:
