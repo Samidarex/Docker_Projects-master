@@ -20,15 +20,15 @@ app.get('/posts', (req, res) => {
     res.send(
       [{
         title: "Hello World!",
-        description: "Hi there! How are you?"
+        description: "TIDPP Lab-4"
       },
       {
         title: "Docker",
-        description: "Docker is awesome!"
+        description: "Docker test"
       },
       {
-        title: "WDJ",
-        description: "WDJ is aight"
+        title: "Made by:",
+        description: "Prodan Marcel"
       }]
     )
   })

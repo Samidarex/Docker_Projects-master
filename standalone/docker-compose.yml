@@ -3,7 +3,7 @@ services:
   api:
     container_name: api
     restart: always
-    image: samidarex/api
+    image: samidarex/docker_projects-master_api
     ports: 
       - "8081:8081"
     depends_on: 
@@ -18,7 +18,7 @@ services:
       - api
   mongo:
     container_name: mongo
-    image: samidarex/docker_projects-master_api
+    image: samidarex/mongo
     expose: 
       - "27017"
     ports: 

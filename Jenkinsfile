@@ -15,7 +15,7 @@ pipeline{
 				git 'https://github.com/Samidarex/Docker_Projects-master.git'
 			}
 		}
-
+		
 		stage('Build') {
 
 			steps {
